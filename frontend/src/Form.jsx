@@ -139,9 +139,10 @@ const handleCheckboxChange = (e) => {
     value={formData.categoryAlloted}
     onChange={handleChange}
     required
-  >  value={formData.categoryAlloted}
+  >  
+    {/* value={formData.categoryAlloted}
     onChange={handleChange}
-    required
+    required */}
     <option value="">Category alloted</option>
     <option value="General male">General male</option>
     <option value="General female">General female</option>
