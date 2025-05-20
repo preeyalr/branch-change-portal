@@ -17,7 +17,7 @@ function App() {
   const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, checked } = e.target;
 
     // Handle checkbox group for requestedBranch
     if (name === 'requestedBranch') {
@@ -28,9 +28,17 @@ function App() {
         return { ...prev, requestedBranch: updated };
       });
     } else {
+      let newValue;
+      if (name === 'rollNumber') {
+        newValue = parseInt(value, 10);
+      } else if (name === 'cgpa') {
+        newValue = parseFloat(value);
+      } else {
+        newValue = value;
+      }
       setFormData((prev) => ({
         ...prev,
-        [name]: type === 'number' ? parseFloat(value) : value
+        [name]: newValue
       }));
     }
   };
@@ -53,7 +61,8 @@ function App() {
 
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className="border p-2 w-full" />
 
-        <input type="text" name="rollNumber" value={formData.rollNumber} onChange={handleChange} placeholder="Roll Number" required className="border p-2 w-full" />
+        <input type="number"
+         name="rollNumber" value={formData.rollNumber} onChange={handleChange} placeholder="Roll Number" required className="border p-2 w-full" />
 
         <select name="currentBranch" value={formData.currentBranch} onChange={handleChange} required className="border p-2 w-full">
           <option value="">Select Current Branch</option>
@@ -66,17 +75,18 @@ function App() {
         </select>
 
         <div>
-          <label className="block font-semibold">Requested Branches</label>
+          <label className="block font-semibold" htmlFor="requestedBranch-CSE">Requested Branches</label>
           {['CSE', 'ECE', 'ME', 'CE', 'EE', 'IT'].map((branch) => (
             <div key={branch} className="flex items-center gap-2">
               <input
                 type="checkbox"
+                id={`requestedBranch-${branch}`}
                 name="requestedBranch"
                 value={branch}
                 checked={formData.requestedBranch.includes(branch)}
                 onChange={handleChange}
               />
-              <label>{branch}</label>
+              <label htmlFor={`requestedBranch-${branch}`}>{branch}</label>
             </div>
           ))}
         </div>

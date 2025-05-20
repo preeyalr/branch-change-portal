@@ -1,4 +1,4 @@
-package com.example.backendp;
+package com.example.backend;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class BranchChangeRequest {
         this.name = name;
     }
 
-    public int  rollNumber(){
+   public int getrollNumber() {
         return rollNumber;
     }
 
